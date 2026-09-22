@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Música para Cami</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #ff4081;
+            margin-bottom: 30px;
+        }
+        .player-container {
+            background-color: #1e1e1e;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            width: 320px;
+            text-align: center;
+        }
+        .album-art {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .song-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .artist {
+            font-size: 14px;
+            color: #b3b3b3;
+            margin-bottom: 20px;
+        }
+        audio {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        select {
+            background-color: #2c2c2c;
+            color: white;
+            border: 1px solid #444;
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+            margin-top: 15px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        /* Colores para las categorías */
+        optgroup {
+            font-weight: bold;
+        }
+        optgroup[label*="Siddhartha"] {
+            color: #ff5252; /* Rojo */
+        }
+        optgroup[label*="Cuco"] {
+            color: #448aff; /* Azul */
+        }
+        optgroup[label*="Especial"] {
+            color: #e040fb; /* Morado especial */
+        }
+        option {
+            color: #ffffff;
+            background-color: #2c2c2c;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Para Cami ❤️</h1>
+
+    <div class="player-container">
+        <img id="albumArt" class="album-art" src="serparte.jpg" alt="Portada del álbum">
+        <div id="songTitle" class="song-title">Ser Parte</div>
+        <div id="artist" class="artist">Siddhartha</div>
+
+        <audio id="audioPlayer" controls>
+            <source id="audioSource" src="serparte.mp3" type="audio/mp3">
+            Tu navegador no soporta el elemento de audio.
+        </audio>
+
+        <select id="songSelector" onchange="cambiarCancion()">
+            <optgroup label="1. Siddhartha">
+                <option value="serparte.mp3" data-art="serparte.jpg" data-title="Ser Parte" data-artist="Siddhartha">Ser Parte - Siddhartha</option>
+                <option value="tuyoyotu.mp3" data-art="tuyoyotu.jpg" data-title="Tú y Tú" data-artist="Siddhartha">Tú y Tú - Siddhartha</option>
+                <option value="escapateconmigo.mp3" data-art="escapateconmigo.jpg" data-title="Escápate Conmigo" data-artist="Siddhartha">Escápate Conmigo - Siddhartha</option>
+                <option value="elchico.mp3" data-art="elchico.jpg" data-title="El Chico" data-artist="Siddhartha">El Chico - Siddhartha</option>
+                <option value="tonight.mp3" data-art="tonight.jpg" data-title="Tonight" data-artist="Siddhartha">Tonight - Siddhartha</option>
+            </optgroup>
+            
+            <optgroup label="2. Cuco">
+                <option value="dobetter.mp3" data-art="dobetter.jpg" data-title="Do Better" data-artist="Cuco">Do Better - Cuco</option>
+                <option value="amordesiempre.mp3" data-art="amordesiempre.jpg" data-title="Amor de Siempre" data-artist="Cuco">Amor de Siempre - Cuco</option>
+                <option value="loquesiento.mp3" data-art="loquesiento.jpg" data-title="Lo Que Siento" data-artist="Cuco">Lo Que Siento - Cuco</option>
+                <option value="wehadtoendit.mp3" data-art="wehadtoendit.jpg" data-title="We Had to End It" data-artist="Cuco">We Had to End It - Cuco</option>
+                <option value="loverisaday.mp3" data-art="loverisaday.jpg" data-title="Lover Is a Day" data-artist="Cuco">Lover Is a Day - Cuco</option>
+            </optgroup>
+
+            <optgroup label="3. Especial (Cigarettes After Sex)">
+                <option value="apocalypse.mp3" data-art="apocalypse.jpg" data-title="Apocalypse" data-artist="Cigarettes After Sex">Apocalypse - Cigarettes After Sex</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <script>
+        function cambiarCancion() {
+            const selector = document.getElementById("songSelector");
+            const audioPlayer = document.getElementById("audioPlayer");
+            const audioSource = document.getElementById("audioSource");
+            const albumArt = document.getElementById("albumArt");
+            const songTitle = document.getElementById("songTitle");
+            const artist = document.getElementById("artist");
+
+            const selectedOption = selector.options[selector.selectedIndex];
+
+            audioSource.src = selector.value;
+            albumArt.src = selectedOption.getAttribute("data-art");
+            songTitle.innerText = selectedOption.getAttribute("data-title");
+            artist.innerText = selectedOption.getAttribute("data-artist");
+
+            audioPlayer.load();
+            audioPlayer.play();
+        }
+    </script>
+
+</body>
+</html>
